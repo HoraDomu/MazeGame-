@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class TerminalMazeGame {
 
-    static final int WIDTH = 31; // must be odd
-    static final int HEIGHT = 15; // must be odd
+    static final int WIDTH = 31;
+    static final int HEIGHT = 15;
     static char[][] maze;
     static int playerX, playerY;
     static int exitX, exitY;
@@ -27,19 +27,19 @@ public class TerminalMazeGame {
         maze = new char[HEIGHT][WIDTH];
         Random rand = new Random();
 
-        // Fill all cells with walls
+
         for (int y = 0; y < HEIGHT; y++)
             for (int x = 0; x < WIDTH; x++)
                 maze[y][x] = '|';
 
         carve(1, 1);
 
-        // Place player
+
         playerX = 1;
         playerY = 1;
         maze[playerY][playerX] = '@';
 
-        // Place exit
+
         exitX = WIDTH - 2;
         exitY = HEIGHT - 2;
         maze[exitY][exitX] = 'E';
@@ -105,7 +105,7 @@ public class TerminalMazeGame {
             clearScreen();
             printMaze();
 
-            // Spawn enemy 1 second after first move
+
             if (!enemySpawned && firstMoveTime > 0 && System.currentTimeMillis() - firstMoveTime > 1000) {
                 spawnEnemy();
                 enemySpawned = true;
@@ -136,7 +136,7 @@ public class TerminalMazeGame {
     }
 
     static void spawnEnemy() {
-        // Spawn enemy as far from player as possible
+
         Random rand = new Random();
         int bestX = 0, bestY = 0;
         int maxDist = -1;
@@ -144,7 +144,7 @@ public class TerminalMazeGame {
         for (int y = 1; y < HEIGHT - 1; y++) {
             for (int x = 1; x < WIDTH - 1; x++) {
                 if (maze[y][x] == ' ' && !(x == playerX && y == playerY)) {
-                    int dist = Math.abs(playerX - x) + Math.abs(playerY - y); // Manhattan distance
+                    int dist = Math.abs(playerX - x) + Math.abs(playerY - y);
                     if (dist > maxDist) {
                         maxDist = dist;
                         bestX = x;
@@ -189,7 +189,7 @@ public class TerminalMazeGame {
     }
 
     static void clearScreen() {
-        // Works in most terminals
+
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
